@@ -25,14 +25,14 @@
 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-$(document).ready(function() {
-  var nav = $('.nav-bar'),
-      initialNavHeight = nav.offset().top;
 
-/*-----------------------------------------------------------------------------------*/
-/* Sticky Navigation
-/*-----------------------------------------------------------------------------------*/
-  function stickyNav() {
+(function($) {
+
+// /*-----------------------------------------------------------------------------------*/
+// /* Sticky Navigation
+// /*-----------------------------------------------------------------------------------*/
+
+  function StickyNav(nav, initialNavHeight) {
     if ($(window).scrollTop() > initialNavHeight) {
       nav.css({'position':'fixed', 'top':'0'});
     } else if ($(window).scrollTop() < initialNavHeight) {
@@ -40,7 +40,13 @@ $(document).ready(function() {
     }
   }
 
-  $(window).scroll(function() {
-    stickyNav();
-  });
-});
+  $.fn.stickyNav = function () {
+    var nav = $(this),
+        initialNavHeight = nav.offset().top;
+
+    $(window).scroll(function() {
+      StickyNav(nav, initialNavHeight);
+    });
+  };
+
+}(jQuery));
